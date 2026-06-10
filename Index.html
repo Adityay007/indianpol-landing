@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IndianPol | Political Operating System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        slate: {
+                            850: '#151e2e',
+                            900: '#0f172a',
+                        }
+                    },
+                    boxShadow: {
+                        'glow': '0 0 20px rgba(15, 23, 42, 0.4)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom scrollbar for horizontal scrolling elements */
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        /* Smooth reveal animation classes */
+        .nav-item { opacity: 0; transform: translateY(10px); transition: all 0.4s ease; }
+        .menu-open .nav-item { opacity: 1; transform: translateY(0); }
+        
+        .fab-menu-item { opacity: 0; transform: translateY(10px) scale(0.95); transition: all 0.2s ease; pointer-events: none;}
+        .fab-open .fab-menu-item { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto;}
+    </style>
+</head>
+<body class="font-sans antialiased text-slate-800 bg-white selection:bg-slate-900 selection:text-white">
+
+    <!-- Sticky Navigation -->
+    <header class="fixed top-0 w-full bg-white/80 backdrop-blur-md z-40 border-b border-slate-100 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center gap-2">
+                    <div class="w-8 h-8 bg-slate-900 rounded-lg flex items-center justify-center">
+                        <i class="ri-government-line text-white text-lg"></i>
+                    </div>
+                    <span class="font-bold text-xl tracking-tight text-slate-900">IndianPol</span>
+                </div>
+                <!-- Hamburger -->
+                <button id="menu-btn" class="p-2 -mr-2 text-slate-600 hover:text-slate-900 focus:outline-none">
+                    <i class="ri-menu-4-line text-2xl" id="menu-icon"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Overlay Navigation -->
+    <nav id="mobile-menu" class="fixed inset-0 bg-white z-50 transform translate-x-full transition-transform duration-500 ease-in-out flex flex-col pt-20 pb-8 px-6 overflow-y-auto">
+        <button id="close-menu-btn" class="absolute top-4 right-4 p-2 text-slate-600">
+            <i class="ri-close-line text-3xl"></i>
+        </button>
+        
+        <div class="flex-1 flex flex-col gap-6 mt-4" id="nav-items-container">
+            <!-- Nav Items -->
+            <a href="#" class="nav-item flex items-start gap-4 p-3 rounded-xl hover:bg-slate-50 transition-colors" style="transition-delay: 100ms;">
+                <div class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center flex-shrink-0 text-slate-700">
+                    <i class="ri-layout-grid-line text-xl"></i>
+                </div>
+                <div>
+                    <div class="font-semibold text-slate-900 text-lg">Platform</div>
+                    <div class="text-sm text-slate-500 mt-0.5">Explore the political operating system</div>
+                </div>
+            </a>
+            
+            <a href="#" class="nav-item flex items-start gap-4 p-3 rounded-xl hover:bg-slate-50 transition-colors" style="transition-delay: 150ms;">
+                <div class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center flex-shrink-0 text-slate-700">
+                    <i class="ri-briefcase-4-line text-xl"></i>
+                </div>
+                <div>
+                    <div class="font-semibold text-slate-900 text-lg">Solutions</div>
+                    <div class="text-sm text-slate-500 mt-0.5">Tools for leaders and organizations</div>
+                </div>
+            </a>
+
+            <a href="#" class="nav-item flex items-start gap-4 p-3 rounded-xl hover:bg-slate-50 transition-colors" style="transition-delay: 200ms;">
+                <div class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center flex-shrink-0 text-slate-700">
+                    <i class="ri-book-open-line text-xl"></i>
+                </div>
+                <div>
+                    <div class="font-semibold text-slate-900 text-lg">Resources</div>
+                    <div class="text-sm text-slate-500 mt-0.5">Guides, research and insights</div>
+                </div>
+            </a>
+
+            <a href="#" class="nav-item flex items-start gap-4 p-3 rounded-xl hover:bg-slate-50 transition-colors" style="transition-delay: 250ms;">
+                <div class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center flex-shrink-0 text-slate-700">
+                    <i class="ri-shield-check-line text-xl"></i>
+                </div>
+                <div>
+                    <div class="font-semibold text-slate-900 text-lg">Security</div>
+                    <div class="text-sm text-slate-500 mt-0.5">Enterprise-grade protection</div>
+                </div>
+            </a>
+
+            <a href="#" class="nav-item flex items-start gap-4 p-3 rounded-xl hover:bg-slate-50 transition-colors" style="transition-delay: 300ms;">
+                <div class="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center flex-shrink-0 text-slate-700">
+                    <i class="ri-chat-1-line text-xl"></i>
+                </div>
+                <div>
+                    <div class="font-semibold text-slate-900 text-lg">Contact</div>
+                    <div class="text-sm text-slate-500 mt-0.5">Speak with our team</div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Bottom CTAs in Nav -->
+        <div class="mt-auto pt-6 border-t border-slate-100 nav-item" style="transition-delay: 350ms;">
+            <div class="flex flex-col gap-3">
+                <button class="w-full py-3.5 px-4 bg-slate-900 text-white rounded-xl font-medium shadow-md hover:bg-slate-800 transition-colors">
+                    Request Demo
+                </button>
+                <button class="w-full py-3.5 px-4 bg-white border border-slate-200 text-slate-900 rounded-xl font-medium shadow-sm hover:bg-slate-50 transition-colors">
+                    Book Strategy Call
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="pt-24 pb-20">
+        
+        <!-- Mobile Hero Layout -->
+        <section class="px-5 pt-6 pb-12 max-w-lg mx-auto text-center">
+            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-50 border border-slate-200 text-xs font-medium text-slate-600 mb-6">
+                <i class="ri-star-s-fill text-yellow-500"></i>
+                Trusted by leading constituencies
+            </div>
+            
+            <h1 class="text-4xl sm:text-5xl font-extrabold text-slate-900 tracking-tight leading-[1.1] mb-5">
+                Build and manage your digital constituency.
+            </h1>
+            
+            <p class="text-base text-slate-600 mb-8 leading-relaxed px-2">
+                The long-term infrastructure platform powering modern political leadership. Organize, engage, and lead with enterprise-grade tools.
+            </p>
+            
+            <div class="flex flex-col gap-3 mb-12">
+                <button class="w-full py-4 px-6 bg-slate-900 text-white rounded-xl font-medium shadow-glow hover:bg-slate-800 transition-all text-lg flex items-center justify-center gap-2">
+                    Book a Strategy Call <i class="ri-arrow-right-line"></i>
+                </button>
+                <button class="w-full py-4 px-6 bg-white border border-slate-200 text-slate-900 rounded-xl font-medium shadow-sm hover:bg-slate-50 transition-all text-lg">
+                    Explore Platform
+                </button>
+            </div>
+
+            <!-- Mobile Dashboard Preview -->
+            <div class="relative w-full rounded-2xl border border-slate-200 bg-slate-50 p-2 shadow-2xl mx-auto overflow-hidden">
+                <!-- Fake Mac/Browser Header -->
+                <div class="flex gap-1.5 px-3 py-2 mb-2 border-b border-slate-200/60">
+                    <div class="w-2.5 h-2.5 rounded-full bg-slate-300"></div>
+                    <div class="w-2.5 h-2.5 rounded-full bg-slate-300"></div>
+                    <div class="w-2.5 h-2.5 rounded-full bg-slate-300"></div>
+                </div>
+                
+                <!-- Swipeable Cards Area -->
+                <div class="flex overflow-x-auto hide-scrollbar gap-3 pb-2 snap-x">
+                    <!-- Widget 1 -->
+                    <div class="snap-center shrink-0 w-64 bg-white rounded-xl border border-slate-100 p-4 shadow-sm text-left">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Citizen Requests</span>
+                            <i class="ri-line-chart-up-line text-emerald-500"></i>
+                        </div>
+                        <div class="text-2xl font-bold text-slate-900 mb-1">1,248</div>
+                        <div class="text-sm text-emerald-600 flex items-center gap-1">
+                            <i class="ri-arrow-up-line text-xs"></i> 12% this week
+                        </div>
+                    </div>
+                    <!-- Widget 2 -->
+                    <div class="snap-center shrink-0 w-64 bg-white rounded-xl border border-slate-100 p-4 shadow-sm text-left">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Active Volunteers</span>
+                            <i class="ri-group-line text-blue-500"></i>
+                        </div>
+                        <div class="text-2xl font-bold text-slate-900 mb-1">452</div>
+                        <div class="text-sm text-blue-600">Across 12 zones</div>
+                    </div>
+                </div>
+                
+                <!-- Stacked List -->
+                <div class="mt-2 bg-white rounded-xl border border-slate-100 p-3 text-left shadow-sm">
+                    <div class="text-xs font-semibold text-slate-500 mb-3 px-1">Recent Activity</div>
+                    <div class="flex items-center gap-3 p-2 rounded-lg hover:bg-slate-50">
+                        <div class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center"><i class="ri-user-add-line"></i></div>
+                        <div>
+                            <div class="text-sm font-medium text-slate-900">New volunteer registered</div>
+                            <div class="text-xs text-slate-500">Ward 44 • 2 mins ago</div>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3 p-2 rounded-lg hover:bg-slate-50">
+                        <div class="w-8 h-8 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center"><i class="ri-check-double-line"></i></div>
+                        <div>
+                            <div class="text-sm font-medium text-slate-900">Grievance resolved</div>
+                            <div class="text-xs text-slate-500">Water supply issue • 1 hr ago</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Social Proof Section (Outcome Focused) -->
+        <section class="py-16 bg-slate-50 border-y border-slate-100 px-5">
+            <div class="max-w-lg mx-auto">
+                <h2 class="text-2xl font-bold text-slate-900 mb-8 text-center">Why Leaders Choose IndianPol</h2>
+                <div class="grid grid-cols-1 gap-4">
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex gap-4">
+                        <div class="mt-1 w-10 h-10 rounded-full bg-slate-100 text-slate-900 flex items-center justify-center shrink-0">
+                            <i class="ri-global-line text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-slate-900 text-lg">Digital Presence</h3>
+                            <p class="text-sm text-slate-600 mt-1">Establish an authoritative, professional online hub that builds public trust.</p>
+                        </div>
+                    </div>
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex gap-4">
+                        <div class="mt-1 w-10 h-10 rounded-full bg-slate-100 text-slate-900 flex items-center justify-center shrink-0">
+                            <i class="ri-team-line text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-slate-900 text-lg">Citizen Engagement</h3>
+                            <p class="text-sm text-slate-600 mt-1">Systematize how you listen, respond, and deliver results to your constituency.</p>
+                        </div>
+                    </div>
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex gap-4">
+                        <div class="mt-1 w-10 h-10 rounded-full bg-slate-100 text-slate-900 flex items-center justify-center shrink-0">
+                            <i class="ri-organization-chart text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-slate-900 text-lg">Operational Efficiency</h3>
+                            <p class="text-sm text-slate-600 mt-1">Streamline your office workflows, task delegation, and staff coordination securely.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Case Studies / Transformation Stories -->
+        <section class="py-16 px-5">
+            <div class="max-w-lg mx-auto">
+                <div class="mb-8">
+                    <span class="text-sm font-semibold text-slate-500 uppercase tracking-wider">Success Stories</span>
+                    <h2 class="text-3xl font-bold text-slate-900 mt-2">Digital Transformation Stories</h2>
+                </div>
+                
+                <div class="flex overflow-x-auto hide-scrollbar gap-5 pb-6 snap-x">
+                    <!-- Story 1 -->
+                    <div class="snap-center shrink-0 w-72 sm:w-80 bg-slate-900 rounded-2xl p-6 text-white flex flex-col justify-between min-h-[280px]">
+                        <div>
+                            <div class="text-slate-400 text-sm mb-4"><i class="ri-quote-text"></i> Case Study</div>
+                            <h3 class="text-xl font-semibold leading-snug mb-3">From Manual Operations to Digital Constituency Management</h3>
+                            <p class="text-slate-400 text-sm line-clamp-3">Discover how replacing fragmented WhatsApp groups and paper ledgers with centralized infrastructure doubled resolution speed.</p>
+                        </div>
+                        <button class="text-left mt-6 text-sm font-medium flex items-center gap-2 hover:text-slate-300">
+                            Read full story <i class="ri-arrow-right-line"></i>
+                        </button>
+                    </div>
+                    <!-- Story 2 -->
+                    <div class="snap-center shrink-0 w-72 sm:w-80 bg-slate-50 border border-slate-200 rounded-2xl p-6 text-slate-900 flex flex-col justify-between min-h-[280px]">
+                        <div>
+                            <div class="text-slate-500 text-sm mb-4"><i class="ri-article-line"></i> Case Study</div>
+                            <h3 class="text-xl font-semibold leading-snug mb-3">Organizing Volunteer Networks Across Constituencies</h3>
+                            <p class="text-slate-600 text-sm line-clamp-3">How a modern campaign team coordinated 2,000+ active volunteers using geo-mapped task assignments.</p>
+                        </div>
+                        <button class="text-left mt-6 text-sm font-medium flex items-center gap-2 text-slate-900">
+                            Read full story <i class="ri-arrow-right-line"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Lead Generation Form (Executive Confidental) -->
+        <section class="py-16 bg-slate-900 text-white px-5">
+            <div class="max-w-lg mx-auto">
+                <div class="text-center mb-10">
+                    <h2 class="text-3xl font-bold mb-3">Schedule a Private Consultation</h2>
+                    <p class="text-slate-400 text-sm">Speak directly with our advisory team to discuss custom digital infrastructure for your office.</p>
+                </div>
+                
+                <form class="space-y-5 bg-slate-800/50 p-6 rounded-2xl border border-slate-700">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="space-y-1">
+                            <label class="text-xs text-slate-400 uppercase tracking-wider font-medium pl-1">First Name</label>
+                            <input type="text" class="w-full bg-slate-900/50 border border-slate-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-white focus:ring-1 focus:ring-white transition-all" placeholder="Rajesh">
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-xs text-slate-400 uppercase tracking-wider font-medium pl-1">Last Name</label>
+                            <input type="text" class="w-full bg-slate-900/50 border border-slate-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-white focus:ring-1 focus:ring-white transition-all" placeholder="Kumar">
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-1">
+                        <label class="text-xs text-slate-400 uppercase tracking-wider font-medium pl-1">Position / Title</label>
+                        <input type="text" class="w-full bg-slate-900/50 border border-slate-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-white focus:ring-1 focus:ring-white transition-all" placeholder="e.g. Member of Legislative Assembly">
+                    </div>
+                    
+                    <div class="space-y-1">
+                        <label class="text-xs text-slate-400 uppercase tracking-wider font-medium pl-1">Constituency & State</label>
+                        <input type="text" class="w-full bg-slate-900/50 border border-slate-600 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-white focus:ring-1 focus:ring-white transition-all" placeholder="Constituency, State">
+                    </div>
+                    
+                    <div class="space-y-1">
+                        <label class="text-xs text-slate-400 uppercase tracking-wider font-medium pl-1">Mobile Number</label>
+                        <div class="flex">
+                            <span class="inline-flex items-center px-4 rounded-l-lg border border-r-0 border-slate-600 bg-slate-800 text-slate-300 text-sm">
+                                +91
+                            </span>
+                            <input type="tel" class="w-full bg-slate-900/50 border border-slate-600 rounded-r-lg px-4 py-3 text-white focus:outline-none focus:border-white focus:ring-1 focus:ring-white transition-all" placeholder="98765 43210">
+                        </div>
+                    </div>
+
+                    <button type="button" class="w-full py-4 mt-4 bg-white text-slate-900 rounded-xl font-bold shadow-lg hover:bg-slate-100 transition-all text-base">
+                        Request Consultation
+                    </button>
+                    <p class="text-center text-xs text-slate-500 mt-4 flex items-center justify-center gap-1">
+                        <i class="ri-lock-line"></i> All information is kept strictly confidential.
+                    </p>
+                </form>
+            </div>
+        </section>
+
+        <!-- Pricing / Enterprise Positioning -->
+        <section class="py-16 px-5 border-b border-slate-100">
+            <div class="max-w-lg mx-auto text-center">
+                <div class="w-12 h-12 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="ri-building-4-line text-2xl text-slate-900"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-slate-900 mb-4">Custom Infrastructure</h2>
+                <p class="text-sm text-slate-600 mb-8 px-4">
+                    We do not offer generic software plans. Every deployment is architected specifically for Individual Leaders, Constituency Offices, or Campaign Teams to ensure maximum impact and security.
+                </p>
+                <button class="py-3 px-8 bg-white border-2 border-slate-900 text-slate-900 rounded-xl font-semibold hover:bg-slate-900 hover:text-white transition-all">
+                    Request Pricing
+                </button>
+            </div>
+        </section>
+
+        <!-- SEO Capabilities Grid -->
+        <section class="py-12 bg-slate-50 px-5">
+            <div class="max-w-lg mx-auto">
+                <h3 class="text-sm font-semibold text-slate-900 mb-6 uppercase tracking-wider text-center">Core Capabilities</h3>
+                <div class="flex flex-wrap justify-center gap-2">
+                    <span class="px-3 py-1.5 bg-white border border-slate-200 rounded-md text-xs text-slate-600 shadow-sm">Political CRM</span>
+                    <span class="px-3 py-1.5 bg-white border border-slate-200 rounded-md text-xs text-slate-600 shadow-sm">Constituency Management Software</span>
+                    <span class="px-3 py-1.5 bg-white border border-slate-200 rounded-md text-xs text-slate-600 shadow-sm">Volunteer Management Platform</span>
+                    <span class="px-3 py-1.5 bg-white border border-slate-200 rounded-md text-xs text-slate-600 shadow-sm">Digital Reputation Building</span>
+                    <span class="px-3 py-1.5 bg-white border border-slate-200 rounded-md text-xs text-slate-600 shadow-sm">Campaign Operations</span>
+                    <span class="px-3 py-1.5 bg-white border border-slate-200 rounded-md text-xs text-slate-600 shadow-sm">Political Website Development</span>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 text-slate-400 py-12 px-5 pb-32">
+        <div class="max-w-lg mx-auto flex flex-col items-center text-center">
+            <div class="flex items-center gap-2 text-white mb-6">
+                <i class="ri-government-line text-2xl"></i>
+                <span class="font-bold text-xl tracking-tight">IndianPol</span>
+            </div>
+            <p class="text-sm mb-8 max-w-xs">The default digital infrastructure platform for political leadership in India.</p>
+            <div class="flex gap-6 text-sm mb-8">
+                <a href="#" class="hover:text-white transition-colors">Privacy</a>
+                <a href="#" class="hover:text-white transition-colors">Terms</a>
+                <a href="#" class="hover:text-white transition-colors">Security</a>
+            </div>
+            <p class="text-xs text-slate-600">&copy; 2026 IndianPol Technologies. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Floating Action Button (FAB) -->
+    <div class="fixed bottom-6 right-6 z-40" id="fab-container">
+        <!-- Expanded Menu -->
+        <div class="absolute bottom-16 right-0 mb-4 flex flex-col gap-3 items-end" id="fab-menu">
+            <button class="fab-menu-item flex items-center gap-3 bg-white px-4 py-3 rounded-full shadow-lg border border-slate-100 hover:bg-slate-50" style="transition-delay: 50ms;">
+                <span class="text-sm font-semibold text-slate-900">Schedule Call</span>
+                <div class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-700">
+                    <i class="ri-calendar-event-line"></i>
+                </div>
+            </button>
+            <button class="fab-menu-item flex items-center gap-3 bg-white px-4 py-3 rounded-full shadow-lg border border-slate-100 hover:bg-slate-50" style="transition-delay: 100ms;">
+                <span class="text-sm font-semibold text-slate-900">Request Demo</span>
+                <div class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-700">
+                    <i class="ri-macbook-line"></i>
+                </div>
+            </button>
+            <button class="fab-menu-item flex items-center gap-3 bg-[#25D366] px-4 py-3 rounded-full shadow-lg hover:bg-[#22bf5b]" style="transition-delay: 150ms;">
+                <span class="text-sm font-semibold text-white">Talk to Advisor</span>
+                <div class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center text-white">
+                    <i class="ri-whatsapp-line text-lg"></i>
+                </div>
+            </button>
+        </div>
+        
+        <!-- Main Toggle Button -->
+        <button id="fab-toggle" class="w-14 h-14 bg-slate-900 text-white rounded-full shadow-glow flex items-center justify-center text-2xl hover:bg-slate-800 transition-all focus:outline-none transform active:scale-95 z-50 relative">
+            <i class="ri-chat-1-fill transition-transform duration-300" id="fab-icon"></i>
+        </button>
+    </div>
+
+    <!-- Scripts for Interactions -->
+    <script>
+        // Mobile Menu Toggle
+        const menuBtn = document.getElementById('menu-btn');
+        const closeMenuBtn = document.getElementById('close-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navContainer = document.getElementById('nav-items-container');
+
+        function toggleMenu() {
+            mobileMenu.classList.toggle('translate-x-full');
+            document.body.classList.toggle('overflow-hidden');
+            if (!mobileMenu.classList.contains('translate-x-full')) {
+                setTimeout(() => navContainer.classList.add('menu-open'), 100);
+            } else {
+                navContainer.classList.remove('menu-open');
+            }
+        }
+
+        menuBtn.addEventListener('click', toggleMenu);
+        closeMenuBtn.addEventListener('click', toggleMenu);
+
+        // FAB Toggle
+        const fabToggle = document.getElementById('fab-toggle');
+        const fabContainer = document.getElementById('fab-container');
+        const fabIcon = document.getElementById('fab-icon');
+        let fabOpen = false;
+
+        fabToggle.addEventListener('click', () => {
+            fabOpen = !fabOpen;
+            if (fabOpen) {
+                fabContainer.classList.add('fab-open');
+                fabIcon.classList.remove('ri-chat-1-fill');
+                fabIcon.classList.add('ri-close-line');
+                fabIcon.style.transform = 'rotate(90deg)';
+            } else {
+                fabContainer.classList.remove('fab-open');
+                fabIcon.classList.remove('ri-close-line');
+                fabIcon.classList.add('ri-chat-1-fill');
+                fabIcon.style.transform = 'rotate(0deg)';
+            }
+        });
+        
+        // Initial setup for FAB (hide items initially)
+        document.querySelectorAll('.fab-menu-item').forEach(el => {
+            el.style.pointerEvents = 'none';
+        });
+    </script>
+</body>
+</html>
